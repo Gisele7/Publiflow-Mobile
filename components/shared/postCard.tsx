@@ -1,13 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from './styles';
+import IPostCardProps from '@/app/interface/IPostCardProps';
 
-export default function PostCard({ post, onPress }) {
+export default function PostCard({ post, onPress }: IPostCardProps) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
-        <Text style={styles.title}>{post.title}</Text>
-        <Text style={styles.author}>{post.author}</Text>
-        <Text style={styles.desc}>{post.description}</Text>
+        <Text style={styles.title}>{post.titulo}</Text>
+        <Text style={styles.author}>{post.autorID}</Text>
+        <Text style={styles.desc}>{post.descricao}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold', 
     color: colors.text,
   },
   author: {

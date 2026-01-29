@@ -10,7 +10,7 @@ export default function Header({ showMenu = true }: HeaderProps) {
   return (
     <View style={styles.container}>
       <Image
-        source={require('@/assets/images/icon.png')}
+        source={require('@/assets/images/logo-header.png')}
         style={styles.logo}
         resizeMode="contain"
       />
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    height: 28,
+    height: 40,
     width: 120,
   },
 });

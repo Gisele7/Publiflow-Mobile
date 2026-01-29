@@ -45,7 +45,7 @@ export default function Login() {
     <View style={globalStyles.screen}>
       <View style={styles.container}>
         <Image
-          source={require('@/assets/images/icon.png')}
+          source={require('@/assets/images/logo-out.png')}
           style={styles.logo}
           resizeMode="contain"
         />

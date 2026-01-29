@@ -1,0 +1,9 @@
+export default interface IPostData {
+  id?: number;
+  dataPublicacao?: Date;
+  caminhoImagem: string;
+  titulo: string;
+  descricao: string;
+  visibilidade?: boolean;
+  autorID?: number;
+}

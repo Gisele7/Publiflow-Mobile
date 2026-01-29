@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const colors = {
   primary: '#2563EB',      // botões
-  secondary: '#1E3A5F',    // header (azul escuro do figma)
+  secondary: '#355D8C',    // header (azul escuro do figma)
   background: '#F3F4F6',
   card: '#FFFFFF',
   text: '#111827',

@@ -1,6 +1,6 @@
+import IPostCardProps from '@/interface/IPostCardProps';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from './styles';
-import IPostCardProps from '@/app/interface/IPostCardProps';
 
 export default function PostCard({ post, onPress }: IPostCardProps) {
   return (

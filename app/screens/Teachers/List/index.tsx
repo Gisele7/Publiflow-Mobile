@@ -1,10 +1,27 @@
+import api from '@/app/api/api';
 import AppButton from '@/components/shared/appButton';
 import Navbar from '@/components/shared/navbar';
 import { globalStyles } from '@/components/shared/styles';
 import { router } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+
+type Teacher = {
+  id: number; 
+  nomeCompleto: string;
+}
 
 export default function TeacherList() {
+  const [professores, setProfessores] = useState<Teacher[]>([]);
+  
+    useEffect(() => {
+      api.get('/users/teachers').then((res) => {
+        setProfessores(res.data);
+      }).catch((erro) => {
+        console.log(erro);
+      })
+    }, [])
+
   return (
     <View style={globalStyles.screen}>
       <Navbar />
@@ -16,8 +33,28 @@ export default function TeacherList() {
       }} />
 
       <View style={{ marginTop: 16 }}>
-        <Text>Professor A</Text>
+        <FlatList 
+          data={professores}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.cardItem}>
+               <Text style={styles.itemText}>{item.nomeCompleto}</Text>
+            </View>
+          )}
+        />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cardItem: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#333'
+  }
+});

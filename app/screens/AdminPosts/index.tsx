@@ -15,13 +15,21 @@ export default function AdminPosts() {
   const [posts, setPosts] = useState<IPostData[]>([]);
   
     useEffect(() => {
+      carregarPosts();
+    }, []);
+
+    const carregarPosts = () => {
       api.get("/posts")
         .then((res) => {
           setPosts(res.data);
           console.log(posts);
         })
-        .catch(console.error);
-    }, []);
+        .catch((erro) => {
+          console.log(erro);
+        });
+    }
+
+    
 
     function handleDelete(id: string) {
     Alert.alert(
@@ -33,7 +41,13 @@ export default function AdminPosts() {
           text: 'Excluir',
           style: 'destructive',
           onPress: () => {
-            setPosts(prev => prev.filter(p => p.id !== id as any));
+            api.delete(`/posts/${id}`)
+            .then((res) => {
+              carregarPosts();
+            }).catch((erro) => {
+              Alert.alert('Erro', 'erro ao deletar post');
+              console.log(erro);
+            })
           },
         },
       ]

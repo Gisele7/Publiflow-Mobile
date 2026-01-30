@@ -9,18 +9,35 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 type Teacher = {
   id: number; 
   nomeCompleto: string;
+  email: string,
+  telefone: string,
+  papelUsuarioID: number,
+  senha: string,
 }
 
 export default function TeacherList() {
   const [professores, setProfessores] = useState<Teacher[]>([]);
   
     useEffect(() => {
-      api.get('/users/teachers').then((res) => {
-        setProfessores(res.data);
-      }).catch((erro) => {
-        console.log(erro);
-      })
+      carregarUsuarios();
     }, [])
+
+  const carregarUsuarios = () => {
+    api.get('/users/teachers').then((res) => {
+      setProfessores(res.data);
+    }).catch((erro) => {
+      console.log(erro);
+    })
+  }
+
+  const handleDelete = (id: number) => {
+    api.delete(`/users/${id}`)
+    .then((res) => {
+      carregarUsuarios();
+    }).catch((erro) => {
+      console.log(erro);
+    })
+  }
 
   return (
     <View style={globalStyles.screen}>
@@ -38,7 +55,19 @@ export default function TeacherList() {
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <View style={styles.cardItem}>
-               <Text style={styles.itemText}>{item.nomeCompleto}</Text>
+               <Text
+                onPress={() => router.push({
+                  pathname: '/screens/Teachers/Edit',
+                  params: {
+                    id: item.id,
+                    nome: item.nomeCompleto,
+                    email: item.email,
+                    telefone: item.telefone,
+                    senha: item.senha
+                  },
+                } as any)}
+               style={styles.itemText}>{item.nomeCompleto}</Text>
+               <Text style={styles.deleteText} onPress={() => handleDelete(item.id)}>Deletar</Text>
             </View>
           )}
         />
@@ -56,5 +85,8 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16,
     color: '#333'
+  },
+  deleteText:{
+    color: '#FF4545'
   }
 });

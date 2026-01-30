@@ -1,20 +1,28 @@
+
 import api from '@/app/api/api';
-import AppButton from '@/components/shared/appButton';
-import Header from '@/components/shared/header';
+import Navbar from '@/components/shared/navbar';
 import PostCard from '@/components/shared/postCard';
 import { globalStyles } from '@/components/shared/styles';
 import IPostData from '@/interface/IPostData';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-// 1. DEFINA O ENDEREÇO BASE DAS IMAGENS
-// Substitua pelo SEU IP (o mesmo que você usou no axios/api.js)
-// Se suas imagens ficam na pasta 'uploads' do backend, mantenha '/uploads/'
-const SERVER_IP = '172.26.192.1'; // <--- COLOQUE SEU IP AQUI
+const SERVER_IP = '172.26.192.1'; 
 const SERVER_PORT = '3000';
 const BASE_IMAGE_URL = `http://${SERVER_IP}:${SERVER_PORT}/uploads/`; 
-// DICA: Verifique no seu backend qual é a rota estática (ex: /files, /images, /uploads)
+
+const colors = {
+  primary: '#355C8C',      
+  background: '#F4F3F1',   
+  cardBorder: '#000000',
+  textPrimary: '#000000',
+  textSecondary: '#555555',
+  searchBg: '#FFFFFF',
+  searchButton: '#0E163D'
+};
+
 
 export default function Home() {
   const [posts, setPosts] = useState<IPostData[]>([]);
@@ -28,36 +36,41 @@ export default function Home() {
       .catch(console.error);
   }, []);
 
-  // 2. Função auxiliar para montar a URL
   const getImageUrl = (imageName: string | null) => {
     if (!imageName) return null;
-    // Se a imagem já vier com http (ex: link externo), retorna ela mesma
     if (imageName.startsWith('http')) return imageName;
-    // Senão, concatena com o endereço do seu servidor
     return `${BASE_IMAGE_URL}${imageName}`;
   };
 
   return (
-    <View style={globalStyles.screen}>
-      <Header />
+    <>
+      <Navbar />
+      <View style={styles.container}>
 
-      <AppButton
-        title="Criar novo post"
-        onPress={() => router.push('/screens/CreatePost')}
-      />
+        <Text style={styles.title}>Publicações</Text>
+
+        <View style={styles.searchContainer}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="#999"
+            style={styles.searchInput}
+          />
+          <TouchableOpacity style={styles.searchButton}>
+            <Ionicons name="search" size={20} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
 
       <FlatList
         data={posts}
         keyExtractor={item => String(item.id)}
         renderItem={({ item }) => {
             
-          // Prepara a URL da imagem antes de passar
           const fullImageUrl = getImageUrl(item.caminhoImagem);
 
           return (
             <PostCard
               post={item}
-              // Se o PostCard precisar mostrar a imagem, passe fullImageUrl para ele também
               onPress={() => router.push({
                 pathname: '/screens/PostDetail',
                 params: { 
@@ -73,5 +86,51 @@ export default function Home() {
         }}
       />
     </View>
+    </>
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingHorizontal: 16,
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginVertical: 16,
+    color: colors.textPrimary,
+  },
+
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  searchInput: {
+    flex: 1,
+    backgroundColor: colors.searchBg,
+    height: 44,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderColor: '#DDD',
+  },
+
+  searchButton: {
+    width: 50,
+    height: 44,
+    backgroundColor: colors.searchButton,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+

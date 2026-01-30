@@ -1,12 +1,13 @@
+
 import api from '@/app/api/api';
 import AppButton from '@/components/shared/appButton';
-import Header from '@/components/shared/header';
 import { globalStyles, colors } from '@/components/shared/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from 'expo-router';
-import { useState } from 'react';
+import { router, useRouter } from 'expo-router';
 import { Alert, Text, TextInput, View, ActivityIndicator, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import Navbar from '@/components/shared/navbar';
+import React, { useState } from 'react';
 
 export default function CreatePost() {
   const [titulo, setTitulo] = useState('');
@@ -82,29 +83,32 @@ export default function CreatePost() {
     }
   }
 
+// cris
+return (
+  <>
+    <Navbar />
+    <View style={styles.container}>
+      <Text style={styles.pageTitle}>Criar Post</Text>
 
-  return (
-  <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-    <View style={globalStyles.screen}>
-      <Header />
+      <View style={styles.form}>
+        <Text style={styles.label}>Título:</Text>
+        <TextInput 
+          placeholder="Título" 
+          style={styles.input}
+          value={titulo}
+          onChangeText={setTitulo} 
+          />
 
-      <Text style={globalStyles.title}>Novo Post</Text>
-
-      <TextInput 
-        placeholder="Título" 
-        style={globalStyles.input}
-        value={titulo}
-        onChangeText={setTitulo} 
-        />
-      <TextInput
-        placeholder="Descrição" 
-        style={globalStyles.input}
-        value={descricao}
-        onChangeText={setDescricao} 
-        />
+        <Text style={styles.label}>Descrição:</Text>
+        <TextInput
+          placeholder="Descrição" 
+          style={[styles.input, styles.textArea]}
+          multiline
+          value={descricao}
+          onChangeText={setDescricao} 
+          />
      
-       <Text style={styles.label}>Imagem do Post</Text>
-        
+        <Text style={styles.label}>Imagem</Text>
         <TouchableOpacity style={styles.imagePickerBtn} onPress={pickImage}>
           <Text style={styles.imagePickerBtnText}>
             {selectedImageUri ? "Trocar Imagem" : "Selecionar Imagem da Galeria"}
@@ -128,17 +132,14 @@ export default function CreatePost() {
           />
         )}
     </View>
-  </ScrollView>
+  </View>
+  
+  </>
   );
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontWeight: 'bold',
-    marginBottom: 8,
-    marginTop: 12,
-    color: colors.text,
-  },
+
   imagePickerBtn: {
     backgroundColor: '#e0e0e0', 
     padding: 15,
@@ -160,8 +161,56 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 24,
+  },
+
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    marginBottom: 30,
+  },
+
+  form: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+  },
+
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 6,
+    padding: 12,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+
   textArea: {
-    height: 150, 
+    height: 100,
     textAlignVertical: 'top',
-  }
+  },
+
+  button: {
+    backgroundColor: '#5b7fd8',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 });

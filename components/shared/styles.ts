@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const colors = {
-  primary: '#2563EB',      // botões
-  secondary: '#1E3A5F',    // header (azul escuro do figma)
+  primary: '#2563EB',      
+  secondary: '#355D8C',    
   background: '#F3F4F6',
   card: '#FFFFFF',
   text: '#111827',
@@ -10,20 +10,18 @@ export const colors = {
   danger: '#DC2626',
 };
 
+
 export const globalStyles = StyleSheet.create({
-  // Container da tela (NUNCA com padding)
   screen: {
     flex: 1,
     backgroundColor: colors.background,
   },
-  // Conteúdo da tela (COM padding)
   content: {
     flex: 1,
     paddingHorizontal: 12,
     paddingVertical: 16,
   },
 
-  // Títulos de página
   title: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -31,7 +29,6 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  // Inputs padrão
   input: {
     backgroundColor: colors.card,
     padding: 12,
@@ -41,7 +38,6 @@ export const globalStyles = StyleSheet.create({
     borderColor: '#E5E7EB',
   },
 
-  // Botão genérico (caso use sem AppButton)
   button: {
     backgroundColor: colors.primary,
     padding: 14,

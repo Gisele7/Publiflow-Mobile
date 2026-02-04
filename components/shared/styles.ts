@@ -1,13 +1,22 @@
 import { StyleSheet } from 'react-native';
 
 export const colors = {
-  primary: '#2563EB',      
-  secondary: '#355D8C',    
-  background: '#F3F4F6',
-  card: '#FFFFFF',
-  text: '#111827',
+  primary: '#355C8C',       // secondary
+  background: '#F4F3F1',   // background
+  black: '#000000',
+  textSecondary: '#555555',
+  searchButton: '#0E163D',
+  backgroundGray: '#F4F5F7',
+  cardBorderGray: '#E0E0E0',
+  textDark: '#333333',
+  editBlue: '#50C0FF', 
+  haiti: '#16193B', 
+  deleteRed: '#FF4545', 
+  white: '#FFFFFF', // antigo card
+  createButtonBlue: '#0047C5', 
   muted: '#6B7280',
-  danger: '#DC2626',
+  buttonBlue: '#2563EB', // antigo primary
+  darknessBlue: '#111827', // antigo text
 };
 
 
@@ -25,12 +34,12 @@ export const globalStyles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: colors.text,
+    color: colors.darknessBlue,
     marginBottom: 16,
   },
 
   input: {
-    backgroundColor: colors.card,
+    backgroundColor: colors.white,
     padding: 12,
     borderRadius: 8,
     marginBottom: 12,
@@ -39,7 +48,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.buttonBlue,
     padding: 14,
     borderRadius: 8,
     alignItems: 'center',

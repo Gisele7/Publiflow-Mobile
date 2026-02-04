@@ -6,4 +6,5 @@ export default interface IPostData {
   descricao: string;
   visibilidade?: boolean;
   autorID?: number;
+  nomeAutor?: string;
 }

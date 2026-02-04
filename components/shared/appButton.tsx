@@ -11,7 +11,7 @@ export default function AppButton({ title, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.createButtonBlue,
     padding: 14,
     borderRadius: 8,
     alignItems: 'center',

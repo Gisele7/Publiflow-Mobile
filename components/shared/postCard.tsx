@@ -8,7 +8,7 @@ export default function PostCard({ post, onPress, onEdit, onDelete } : IPostCard
 
       <View style={styles.content}>
         <Text style={styles.title}>{post.titulo}</Text>
-        <Text style={styles.author}>{post.autorID}</Text>
+        <Text style={styles.author}>{post.nomeAutor}</Text>
         <Text style={styles.description} numberOfLines={3}>
           {post.descricao.length > 55 
           ? post.descricao.substring(0, 55) + "..." 

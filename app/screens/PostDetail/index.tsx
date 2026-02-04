@@ -20,7 +20,7 @@ export default function PostDetail() {
         <Text style={styles.title}>{params.titulo}</Text>
         
         <Text style={styles.metaData}>
-           Autor ID: {params.autor} • Post #{params.id}
+           Autor: {params.autor} • Post #{params.id}
         </Text>
 
         <Text style={styles.textContent}>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: '100%',
-    height: 220,
+    height: 350,
     borderRadius: 2,
   },
 

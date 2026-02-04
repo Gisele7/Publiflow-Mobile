@@ -83,7 +83,6 @@ export default function CreatePost() {
     }
   }
 
-// cris
 return (
   <>
     <Navbar />

@@ -1,50 +1,104 @@
-# Welcome to your Expo app 👋
+# PubliFlow 🎓
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+O **PubliFlow** é uma plataforma de blog acadêmico desenvolvida para facilitar a comunicação e o compartilhamento de conteúdo entre professores e alunos de uma faculdade. O sistema permite a criação, edição e visualização de postagens com suporte a uploads de imagens, além de gerenciamento de usuários e controle de acesso baseado em papéis (RBAC).
 
-## Get started
+## 📱 Telas e Funcionalidades
 
-1. Install dependencies
+O aplicativo conta com fluxos distintos dependendo do nível de acesso do usuário:
 
-   ```bash
-   npm install
-   ```
+### 🚀 Funcionalidades Gerais
+* **Autenticação:** Login seguro com persistência de sessão via `AsyncStorage`.
+* **Feed de Notícias:** Listagem de postagens com imagens, títulos e descrições.
+* **Busca Inteligente:** Filtro em tempo real de posts por título ou conteúdo.
+* **Menu Responsivo:** Navbar lateral (Drawer customizado) que se adapta ao papel do usuário e à altura do dispositivo (Safe Area).
 
-2. Start the app
+### 🎓 Perfil: Aluno
+* Visualização de todas as postagens.
+* Acesso restrito apenas à leitura de conteúdos.
+* Visualização de detalhes das postagens.
 
-   ```bash
-   npx expo start
-   ```
+### 👨‍🏫 Perfil: Professor (Admin)
+* **Gerenciamento de Posts:** Criar, Editar e Excluir publicações (com upload de imagem da galeria).
+* **Gerenciamento de Alunos:** Cadastrar, listar, editar e remover alunos.
+* **Gerenciamento de Professores:** Cadastrar, listar, editar e remover outros professores.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🛠️ Tecnologias Utilizadas
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-## Get a fresh project
+* **[React Native](https://reactnative.dev/)** + **[Expo](https://expo.dev/)** (Framework Mobile)
+* **[TypeScript](https://www.typescriptlang.org/)** (Tipagem estática e segurança no código)
+* **[Expo Router](https://docs.expo.dev/router/introduction/)** (Navegação baseada em arquivos - File-based routing)
+* **[Axios](https://axios-http.com/)** (Cliente HTTP para consumo de API REST)
+* **[Expo Image Picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)** (Seleção e upload de imagens)
+* **[AsyncStorage](https://react-native-async-storage.github.io/async-storage/)** (Armazenamento local de token/sessão)
+* **Context API** (Gerenciamento global de autenticação e rotas protegidas)
 
-When you're ready, run:
+---
+
+## 📂 Estrutura do Projeto
 
 ```bash
-npm run reset-project
+PubliFlow/
+├── app/                    # Rotas e Telas (Expo Router)
+│   ├── screens/            # Telas principais (Home, Login, CRUDs)
+│   │   ├── AdminPosts/     # Gestão de posts
+│   │   ├── Students/       # CRUD de Estudantes
+│   │   ├── Teachers/       # CRUD de Professores
+│   │   └── ...
+│   ├── _layout.tsx         # Configuração base de navegação (Stack)
+│   └── index.tsx           # Ponto de entrada (Entry point)
+├── components/             # Componentes Reutilizáveis
+│   └── shared/             # Navbar, AppButton, PostCard, Styles
+├── context/                # Contexto de Autenticação (AuthContext)
+├── interface/              # Tipagens TypeScript (IPostData, User, etc.)
+├── assets/                 # Imagens e ícones estáticos
+└── api/                    # Configuração do Axios
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## ⚙️ Pré-requisitos
+Para rodar este projeto, você precisará ter instalado:
 
-## Learn more
+Node.js (versão LTS recomendada)
 
-To learn more about developing your project with Expo, look at the following resources:
+Expo Go (instalado no seu celular físico) ou um Emulador (Android Studio/Xcode).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Backend: Uma API rodando localmente (Node.js/Express ou similar) pronta para receber as requisições.
 
-## Join the community
+## 🚀 Como rodar o projeto
+Clone o repositório:
 
-Join our community of developers creating universal apps.
+```Bash
+git clone [https://github.com/seu-usuario/publiflow-mobile.git](https://github.com/seu-usuario/publiflow-mobile.git)
+cd publiflow-mobile
+```
+Instale as dependências:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```Bash
+npm install
+# ou
+yarn install
+```
+Configuração da API (Importante): Para testar no celular físico ou emuladores, você deve configurar o IP da sua máquina local, pois o localhost do celular não é o mesmo do computador.
+
+Abra o arquivo app/api/api.ts e edite:
+
+TypeScript
+// Substitua pelo IPv4 da sua máquina (veja com 'ipconfig' no Windows ou 'ifconfig' no Mac/Linux)
+const SERVER_IP = '192.168.X.X'; 
+const SERVER_PORT = '3000';
+
+export const BASE_URL = `http://${SERVER_IP}:${SERVER_PORT}/api`;
+
+Execute o projeto:
+
+```Bash
+npx expo start
+```
+Acesse:
+
+Escaneie o QR Code exibido no terminal com o app Expo Go (Android/iOS).
+
+Ou pressione a para abrir no Emulador Android / i para o Simulador iOS.

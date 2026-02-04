@@ -1,7 +1,7 @@
 
 import api from '@/app/api/api';
 import PostCard from '@/components/shared/postCard';
-import { globalStyles } from '@/components/shared/styles';
+import { colors, globalStyles } from '@/components/shared/styles';
 import IPostData from '@/interface/IPostData';
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/shared/navbar';
@@ -45,7 +45,7 @@ export default function AdminPosts() {
             .then((res) => {
               carregarPosts();
             }).catch((erro) => {
-              Alert.alert('Erro', 'erro ao deletar post');
+              Alert.alert('Erro', 'erro ao deletar post ' + erro.response.data.message);
               console.log(erro);
             })
           },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
 
   newPostButton: {
-    backgroundColor: '#0b4edb',
+    backgroundColor: colors.createButtonBlue,
     paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 6,
